@@ -1,0 +1,19 @@
+@import "../styles/index.scss";
+
+.layoutLanding {
+  padding-top: 4rem;
+background-color: $fontLightGrey;
+  &__title {
+    background-color: $fontLightGrey;
+    align-items: center;
+    margin-top: -2rem;
+    width: 100%;
+    height: 90px;
+    background-image: url("http://201.116.217.98:82/consulta/PeriodosWeb/png/gigantesDesarrollando.png");
+    background-size: 210px 90px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 40px;
+  }
+}
+

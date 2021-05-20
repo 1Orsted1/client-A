@@ -1,0 +1,13 @@
+@import "./styles/index.scss";
+
+
+
+.succes{
+    color: $succes;
+    background-color: $backgroundSucces;
+}
+
+.error{
+    color: $error;
+    background-color: $backgroundError;
+}
