@@ -140,7 +140,6 @@ export default function RegisterForm() {
       name: "",
       LastNameP: "",
       LastNameM: "",
-      kindU: "",
       email: "",
       password: "",
       passwordR: "",
@@ -150,7 +149,6 @@ export default function RegisterForm() {
       name: false,
       LastNameP: false,
       LastNameM: false,
-      kindU: false,
       email: false,
       password: false,
       passwordR: false,
@@ -163,7 +161,7 @@ export default function RegisterForm() {
         <Input
           type="text"
           name="user"
-          maxlenght="20"
+          maxLength="20"
           placeholder="Nombre de usuario"
           className="registerForm__input"
           value={input.user}
@@ -175,7 +173,7 @@ export default function RegisterForm() {
         <Input
           type="text"
           name="name"
-          maxlenght="20"
+          maxLength="20"
           placeholder="Nombre"
           className="registerForm__input"
           value={input.name}
@@ -187,7 +185,7 @@ export default function RegisterForm() {
         <Input
           type="text"
           name="LastNameP"
-          maxlenght="20"
+          maxLength="20"
           placeholder="Apellido paterno"
           className="registerForm__input"
           value={input.LastNameP}
@@ -199,7 +197,7 @@ export default function RegisterForm() {
         <Input
           type="text"
           name="LastNameM"
-          maxlenght="20"
+          maxLength="20"
           placeholder="Apellido materno"
           className="registerForm__input"
           value={input.LastNameM}
@@ -211,7 +209,7 @@ export default function RegisterForm() {
         <Input
           type="email"
           name="email"
-          maxlenght="30"
+          maxLength="30"
           placeholder="Correo electronico"
           className="registerForm__input"
           value={input.email}
@@ -223,8 +221,8 @@ export default function RegisterForm() {
         <Input
           type="password"
           name="password"
-          maxlenght="30"
-          placeholder="Contraseña"
+          maxLength="30"
+          placeholder="Contraseña(min 6 caracteres)"
           className="registerForm__input"
           value={input.password}
           onChange={validateInput}
@@ -235,7 +233,7 @@ export default function RegisterForm() {
         <Input
           type="password"
           name="passwordR"
-          maxlenght="30"
+          maxLength="30"
           placeholder="Repetir contraseña"
           className="registerForm__input"
           value={input.passwordR}

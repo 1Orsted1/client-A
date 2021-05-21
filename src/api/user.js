@@ -27,20 +27,24 @@ export function signUpApi(dataInput) {
     })
     .then((result) => {
       if (result.resultado.user) {
-        return {
-          status: 200,
-          message: "Usuario creado correctamente",
-        };
+        if (result.resultado.email[0][0] === undefined) {
+          return {
+            status: 200,
+            message: "Usuario creado correctamente",
+          };
+        } else {
+
+          return {
+            status: 404,
+            message: `Ya existe una cuenta con el correo: ${result.resultado.email[0][0].email}`,
+          };
+        }
       }
-      return {
-        status: 404,
-        message: result.message,
-      };
     })
-    .catch((err) => {
+        .catch((err) => {
       return {
         status: 404,
-        message: err.message,
+        message:`Error del servidor: ${err.message}`,
       };
     });
 }
