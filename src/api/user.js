@@ -1,5 +1,6 @@
 //funciones para conectarse a los endpoints del servidor
 import { BASE_PATH, API_VERSION } from "./config";
+import moment from "moment";
 
 export function signUpApi(dataInput) {
   const url = `${BASE_PATH}/${API_VERSION}/sign-up`;
@@ -9,7 +10,7 @@ export function signUpApi(dataInput) {
   dataFetch.apellido_p = dataInput.LastNameP;
   dataFetch.apellido_m = dataInput.LastNameM;
   dataFetch.tipo_usuario = dataInput.kindU;
-  dataFetch.fecha_alta = getDate();
+  dataFetch.fecha_alta = moment().format("L");
   dataFetch.clave = dataInput.password;
   dataFetch.repetir = dataInput.passwordR;
   dataFetch.email = dataInput.email;
@@ -26,25 +27,32 @@ export function signUpApi(dataInput) {
       return response.json();
     })
     .then((result) => {
-      if (result.resultado.user) {
-        if (result.resultado.email[0][0] === undefined) {
+      const { resultado } = result;
+      if (resultado.user) {
+        if (resultado.existe === undefined) {
           return {
             status: 200,
             message: "Usuario creado correctamente",
           };
         } else {
-
-          return {
-            status: 404,
-            message: `Ya existe una cuenta con el correo: ${result.resultado.email[0][0].email}`,
-          };
+          if (resultado.existe.email !== undefined) {
+            return {
+              status: 404,
+              message: `Ya existe una cuenta con el correo: ${resultado.existe.email}`,
+            };
+          } else {
+            return {
+              status: 404,
+              message: `Ya existe una cuenta con el usuario: ${resultado.existe.usuario}`,
+            };
+          }
         }
       }
     })
-        .catch((err) => {
+    .catch((err) => {
       return {
         status: 404,
-        message:`Error del servidor: ${err.message}`,
+        message: `Error del servidor: ${err.message}`,
       };
     });
 }
@@ -61,17 +69,4 @@ const dataFetch = {
   clave: "",
   repetir: "",
   email: "",
-};
-
-const getDate = () => {
-  let date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-
-  if (month < 10) {
-    return `${year}-0${month}-${day}`;
-  } else {
-    return `${year}-${month}-${day}`;
-  }
 };
