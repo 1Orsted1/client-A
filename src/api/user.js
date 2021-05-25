@@ -57,6 +57,53 @@ export function signUpApi(dataInput) {
     });
 }
 
+export function signInApi(data) {
+  const url = `${BASE_PATH}/${API_VERSION}/sign-in`;
+  const { username, password } = data;
+  dataSignIn.usuario = username;
+  dataSignIn.clave = password;
+  const params = {
+    method: "POST",
+    body: JSON.stringify(dataSignIn),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      const { resultado } = result;
+      if (resultado.user !== undefined) {
+        return {
+          status: 404,
+          message: resultado.message,
+        };
+      } else {
+        if (resultado.accessToken !== undefined) {
+          console.log("usurio correcto");
+          return {
+            status: 200,
+            message: "Iniciando sesion...",
+            tokens: resultado,
+          };
+        }
+      }
+    })
+    .catch((err) => {
+      return {
+        status: 404,
+        message: `Error del servidor: ${err.message}`,
+      };
+    });
+}
+
+const dataSignIn = {
+  usuario: "",
+  clave: "",
+};
+
 const dataFetch = {
   usuario: "",
   nombre: "",
